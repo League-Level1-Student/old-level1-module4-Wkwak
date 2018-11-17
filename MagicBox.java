@@ -13,12 +13,16 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class MagicBox extends JPanel implements Runnable, MouseListener {
-
+	JFrame frame = new JFrame("The Magic Box contains many secrets...");
+	MediaPalace palace = new MediaPalace();
+	JPanel panel = new JPanel();
 	/*
 	 * We are going to hide secrets within the magic box. 
 	 * When the user clicks on a secret place, stuff will happen.
@@ -50,12 +54,15 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	}
 
 	private void createUI() {
-		JFrame frame = new JFrame("The Magic Box contains many secrets...");
+		
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		frame.addMouseListener(this);
+		frame.add(panel);
+		
 	}
 
 	private void loadBackgroundImage() throws Exception {
@@ -75,6 +82,14 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		System.out.println("???");
+		String fileName = "colorful-confetti-on-transparent-background_1035-10599.jpg";
+		JLabel label = palace.loadImageFromWithinProject(fileName);
+		label.setVisible(true);
+		panel.add(label);
+		
+		System.out.println(backgroundImage.getRGB(keyEvent.getX, keyEvent.getY));
 		
 	}
 
